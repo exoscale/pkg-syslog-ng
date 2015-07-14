@@ -1,0 +1,13 @@
+Description: quick ack to disable STOMP test.
+
+--- a/Makefile.in	2015-07-14 14:53:05.855182341 +0200
++++ b/Makefile.in	2015-07-14 14:55:24.928316421 +0200
+@@ -996,7 +996,7 @@
+ @ENABLE_JSON_TRUE@	modules/json/tests/test_json_parser$(EXEEXT) \
+ @ENABLE_JSON_TRUE@	modules/json/tests/test_dot_notation$(EXEEXT)
+ @ENABLE_JSON_TRUE@am__EXEEXT_19 = $(am__EXEEXT_18)
+-am__EXEEXT_20 = modules/afstomp/tests/test_stomp_proto$(EXEEXT)
++@ENABLE_STOMP_TRUE@am__EXEEXT_20 = modules/afstomp/tests/test_stomp_proto$(EXEEXT)
+ @ENABLE_JOURNALD_TRUE@am__EXEEXT_21 = modules/systemd-journal/tests/test_systemd_journal$(EXEEXT)
+ @ENABLE_JOURNALD_TRUE@am__EXEEXT_22 = $(am__EXEEXT_21)
+ am__EXEEXT_23 = tests/unit/test_resolve_pwgr$(EXEEXT) \
