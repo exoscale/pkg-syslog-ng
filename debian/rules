@@ -6,7 +6,7 @@
 
 EXTRA_CONFIGURE_OPTS += \
 	--enable-ssl \
-	--enable-dynamic-linkind \
+	--enable-dynamic-linking \
 	--enable-ipv6 \
 	--disable-tcp-wrapper \
 	--disable-spoof-source \
@@ -16,6 +16,7 @@ EXTRA_CONFIGURE_OPTS += \
 	--enable-linux-caps \
 	--disable-mongodb \
 	--enable-json \
+	--with-jsonc=system \
 	--disable-amqp \
 	--disable-stomp \
 	--disable-smtp \
