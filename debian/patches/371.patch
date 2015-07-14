@@ -1,0 +1,77 @@
+From 2d04c7afef0ecd85ec41497123c5766dc32843e4 Mon Sep 17 00:00:00 2001
+From: Vincent Bernat <vincent@bernat.im>
+Date: Tue, 20 Jan 2015 17:31:44 +0100
+Subject: [PATCH] json: accept more characters in `extract-prefix` for
+ `json-parser()`
+
+When receiving JSON objects whose keys have `@` or other non-JS-approved
+characters, it is currently not possible to extract them with
+`extract-prefix` since they are not considered as a valid JS identifier.
+
+In JS, bracket notation should be used instead when accessing such
+properties. This is not implemented in syslog-ng as only array indices
+can be accessed with this notation.
+
+This commit extends the set of supported characters to:
+
+     !"#$%&'()*+,-/:;<=>?@\^_`{|}~
+
+Which is everything printable in the ASCII range except `.`, `[` and
+`]` (just for equity with its sister).
+
+Signed-off-by: Vincent Bernat <vincent@bernat.im>
+---
+ modules/json/dot-notation.c            |  6 +++---
+ modules/json/tests/test_dot_notation.c | 13 +++++++++++++
+ 2 files changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/modules/json/dot-notation.c b/modules/json/dot-notation.c
+index 82c1ba7..de2cc26 100644
+--- a/modules/json/dot-notation.c
++++ b/modules/json/dot-notation.c
+@@ -80,11 +80,11 @@ static gboolean
+ _compile_dot_notation_member_ref(const gchar *level, JSONDotNotationElem *elem)
+ {
+   const gchar *p = level;
+-  
+-  if (!g_ascii_isalnum(level[0]) && *p != '_')
++
++  if (!g_ascii_isprint(*p) || strchr(".[]", *p) != NULL)
+     return FALSE;
+ 
+-  while (g_ascii_isalnum(*p) || *p == '_')
++  while (g_ascii_isprint(*p) && strchr(".[]", *p) == NULL)
+     p++;
+ 
+   if (*p != 0)
+diff --git a/modules/json/tests/test_dot_notation.c b/modules/json/tests/test_dot_notation.c
+index ca3410e..82e0fed 100644
+--- a/modules/json/tests/test_dot_notation.c
++++ b/modules/json/tests/test_dot_notation.c
+@@ -139,6 +139,18 @@ test_dot_notation_eval_object_subscript_extracts_the_child_object(void)
+ }
+ 
+ static void
++test_dot_notation_eval_object_succeeds_with_odd_or_invalid_js_identifier(void)
++{
++  assert_dot_notation_eval_equals("{'@foo': 'bar'}", "@foo", "'bar'");
++  assert_dot_notation_eval_equals("{'_foo': 'bar'}", "_foo", "'bar'");
++  assert_dot_notation_eval_equals("{'foo+4': 'bar'}", "foo+4", "'bar'");
++  assert_dot_notation_eval_equals("{'foo,bar': 'bar'}", "foo,bar", "'bar'");
++  assert_dot_notation_eval_equals("{'foo bar': 'bar'}", "foo bar", "'bar'");
++  assert_dot_notation_eval_equals("{'foo-bar': 'bar'}", "foo-bar", "'bar'");
++  assert_dot_notation_eval_equals("{'1': 'bar'}", "1", "'bar'");
++}
++
++static void
+ test_dot_notation_eval_object_member_from_non_object_fails(void)
+ {
+   assert_dot_notation_eval_fails("[1, 2, 3]", "foo");
+@@ -182,6 +194,7 @@ test_dot_notation_eval(void)
+ {
+   DOT_NOTATION_TESTCASE(test_dot_notation_eval_empty_subscript_returns_the_object);
+   DOT_NOTATION_TESTCASE(test_dot_notation_eval_object_subscript_extracts_the_child_object);
++  DOT_NOTATION_TESTCASE(test_dot_notation_eval_object_succeeds_with_odd_or_invalid_js_identifier);
+   DOT_NOTATION_TESTCASE(test_dot_notation_eval_fails_with_an_identifier_that_doesnt_start_with_a_letter);
+   DOT_NOTATION_TESTCASE(test_dot_notation_eval_fails_with_an_identifier_that_contains_a_non_alnum_character);
+   DOT_NOTATION_TESTCASE(test_dot_notation_eval_fails_with_an_incorrect_array_reference);
