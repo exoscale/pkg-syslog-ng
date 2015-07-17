@@ -1,3 +1,9 @@
+syslog-ng (3.6.4-0~precise0+exo2) precise; urgency=medium
+
+  * Ensure init scripts are installed.
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 17 Jul 2015 17:34:21 +0200
+
 syslog-ng (3.6.4-0~precise0+exo1) precise; urgency=medium
 
   * Build for Precise.
