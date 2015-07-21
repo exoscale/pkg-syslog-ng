@@ -1,0 +1,43 @@
+From 82b135b7e0127785e1e4786399cc8b9e75fc3908 Mon Sep 17 00:00:00 2001
+From: Vincent Bernat <vincent@bernat.im>
+Date: Tue, 21 Jul 2015 13:44:03 +0200
+Subject: [PATCH] json: do not rely on json_object_is_type() accepting NULL
+
+Starting from jsonc 0.10, `json_object_is_type()` started handling NULL
+appropriately. With previous versions, calling this function with NULL
+would lead to a segfault.
+
+The version embedded in syslog-ng is recent enough. This fix is for
+people using `--with-jsonc=system` and having a too old system jsonc
+library (like the one in Ubuntu Precise).
+---
+ modules/json/dot-notation.c | 2 ++
+ modules/json/json-parser.c  | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/modules/json/dot-notation.c b/modules/json/dot-notation.c
+index de2cc26..6ece811 100644
+--- a/modules/json/dot-notation.c
++++ b/modules/json/dot-notation.c
+@@ -221,6 +221,8 @@ json_dot_notation_eval(JSONDotNotation *self, struct json_object *jso)
+   JSONDotNotationElem *compiled;
+   gint i;
+ 
++  if (!jso) goto error;
++
+   compiled = self->compiled_elems;
+   for (i = 0; compiled && compiled[i].used; i++)
+     {
+diff --git a/modules/json/json-parser.c b/modules/json/json-parser.c
+index a098ce1..7e78be4 100644
+--- a/modules/json/json-parser.c
++++ b/modules/json/json-parser.c
+@@ -185,7 +185,7 @@ json_parser_extract(JSONParser *self, struct json_object *jso, LogMessage *msg)
+   if (self->extract_prefix)
+     jso = json_extract(jso, self->extract_prefix);
+ 
+-  if (!json_object_is_type(jso, json_type_object))
++  if (!jso || !json_object_is_type(jso, json_type_object))
+     {
+       return FALSE;
+     }
