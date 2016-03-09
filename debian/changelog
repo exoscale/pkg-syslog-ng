@@ -1,3 +1,9 @@
+syslog-ng (3.6.4-0~xenial0+exo1) xenial; urgency=medium
+
+  * Forward-port to Xenial.
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 03 Jun 2016 06:56:08 +0200
+
 syslog-ng (3.6.4-0~precise0+exo3) precise; urgency=medium
 
   * Add a patch to avoid segfault when handling improper JSON input:
