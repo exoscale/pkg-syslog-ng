@@ -37,7 +37,7 @@ ABI_VERSION_LOW    = $(shell dpkg-parsechangelog | sed -n '/^Version:/s/^Version
 ABI_VERSION_HIGH   = $(shell echo $$(echo ${ABI_VERSION_LOW} | rev | cut -d. -f2- | rev).$$(expr $$(echo ${ABI_VERSION_LOW} | rev | cut -d. -f1) + 1))
 
 %:
-	dh $@
+	dh $@ --with systemd
 
 override_dh_auto_configure:
 	dh_auto_configure -- \

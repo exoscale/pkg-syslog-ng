@@ -11,7 +11,8 @@ Build-Depends: debhelper (>= 7.0.50~),
                libssl-dev,
                libjson-c-dev | libjson0-dev,
                libriemann-client-dev,
-               libcap-dev
+               libcap-dev,
+               dh-systemd
 Standards-Version: 3.9.5
 Homepage: http://www.balabit.com/network-security/syslog-ng/opensource-logging-system
 

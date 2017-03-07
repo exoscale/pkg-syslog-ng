@@ -1,3 +1,9 @@
+syslog-ng (3.6.4-0~xenial0+exo2) xenial; urgency=medium
+
+  * Ship a systemd service file.
+
+ -- Vincent Bernat <bernat@debian.org>  Tue, 07 Mar 2017 17:41:29 +0100
+
 syslog-ng (3.6.4-0~xenial0+exo1) xenial; urgency=medium
 
   * Forward-port to Xenial.
