@@ -4,6 +4,7 @@ Documentation=man:syslog-ng(8)
 Requires=syslog.socket
 
 [Service]
+Type=notify
 ExecStart=/usr/bin/syslog-ng -F
 ExecReload=/usr/bin/kill -HUP $MAINPID
 StandardOutput=null

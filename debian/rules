@@ -22,7 +22,7 @@ EXTRA_CONFIGURE_OPTS += \
 	--disable-stomp \
 	--disable-smtp \
 	--disable-redis \
-	--disable-systemd \
+	--enable-systemd \
 	--disable-geoip \
 	--enable-riemann
 
