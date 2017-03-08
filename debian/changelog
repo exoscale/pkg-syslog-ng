@@ -1,3 +1,11 @@
+syslog-ng (3.6.4-0~xenial0+exo6) xenial; urgency=medium
+
+  * Don't alias syslog.service. Don't require syslog.socket.
+    With systemd support, syslog-ng will directly read from journald. No
+    need to receive forwarded logs.
+
+ -- Vincent Bernat <bernat@debian.org>  Wed, 08 Mar 2017 09:59:16 +0100
+
 syslog-ng (3.6.4-0~xenial0+exo5) xenial; urgency=medium
 
   * Fix path to syslog-ng in systemd service file.
