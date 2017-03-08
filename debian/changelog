@@ -1,3 +1,9 @@
+syslog-ng (3.6.4-0~xenial0+exo3) xenial; urgency=medium
+
+  * Ensure systemd service files are correctly detected by dh.
+
+ -- Vincent Bernat <bernat@debian.org>  Wed, 08 Mar 2017 06:21:56 +0100
+
 syslog-ng (3.6.4-0~xenial0+exo2) xenial; urgency=medium
 
   * Ship a systemd service file.
