@@ -1,3 +1,11 @@
+syslog-ng (3.6.4-0~xenial0+exo5) xenial; urgency=medium
+
+  * Fix path to syslog-ng in systemd service file.
+  * For syslog-ng to run in "foreground" mode (without a supervising
+    process).
+
+ -- Vincent Bernat <bernat@debian.org>  Wed, 08 Mar 2017 09:43:37 +0100
+
 syslog-ng (3.6.4-0~xenial0+exo4) xenial; urgency=medium
 
   * Enable systemd support in syslog-ng.

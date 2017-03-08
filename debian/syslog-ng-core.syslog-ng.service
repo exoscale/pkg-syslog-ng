@@ -5,7 +5,7 @@ Requires=syslog.socket
 
 [Service]
 Type=notify
-ExecStart=/usr/bin/syslog-ng -F
+ExecStart=/usr/sbin/syslog-ng -F --process-mode=foreground
 ExecReload=/usr/bin/kill -HUP $MAINPID
 StandardOutput=null
 
