@@ -5,7 +5,7 @@ Documentation=man:syslog-ng(8)
 [Service]
 Type=notify
 ExecStart=/usr/sbin/syslog-ng -F --process-mode=foreground
-ExecReload=/usr/bin/kill -HUP $MAINPID
+ExecReload=/bin/kill -HUP $MAINPID
 StandardOutput=null
 
 [Install]

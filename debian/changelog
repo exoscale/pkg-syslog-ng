@@ -1,3 +1,9 @@
+syslog-ng (3.6.4-0~xenial0+exo7) xenial; urgency=medium
+
+  * Fix path to "kill".
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 10 Mar 2017 07:55:05 +0100
+
 syslog-ng (3.6.4-0~xenial0+exo6) xenial; urgency=medium
 
   * Don't alias syslog.service. Don't require syslog.socket.
