@@ -2,6 +2,14 @@
 
 set -e
 
+case $1 in
+    configure)
+        # rsyslog has a syslog user, some packages (logrotate) may depend on its existence
+        adduser --system --disabled-password --disabled-login --group --no-create-home --quiet syslog
+        adduser --quiet syslog adm
+        ;;
+esac
+
 #DEBHELPER#
 
 exit 0

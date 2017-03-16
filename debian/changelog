@@ -1,3 +1,9 @@
+syslog-ng (3.6.4-0~xenial0+exo8) xenial; urgency=medium
+
+  * Create a syslog user/group (as rsyslog package).
+
+ -- Vincent Bernat <bernat@debian.org>  Thu, 16 Mar 2017 07:43:32 +0100
+
 syslog-ng (3.6.4-0~xenial0+exo7) xenial; urgency=medium
 
   * Fix path to "kill".
