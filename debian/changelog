@@ -1,3 +1,9 @@
+syslog-ng (3.6.4-0~xenial0+exo9) xenial; urgency=medium
+
+  * Add upstream patch to use memmove() instead of memcpy() in nvtables.c.
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 07 Apr 2017 13:14:48 +0200
+
 syslog-ng (3.6.4-0~xenial0+exo8) xenial; urgency=medium
 
   * Create a syslog user/group (as rsyslog package).

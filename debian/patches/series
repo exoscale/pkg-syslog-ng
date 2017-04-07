@@ -1,3 +1,4 @@
 371.patch
 disable-afstomp-tests.patch
 578.patch
+0001-nvtable-use-memmove-instead-of-memcpy.patch
