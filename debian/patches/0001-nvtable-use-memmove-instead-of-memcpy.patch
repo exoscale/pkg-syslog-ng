@@ -15,11 +15,11 @@ Signed-off-by: Balazs Scheidler <balazs.scheidler@balabit.com>
  lib/nvtable.c | 14 +++++++-------
  1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/lib/nvtable.c b/lib/nvtable.c
-index cf6a6ff3ec4a..9c05736386cf 100644
---- a/lib/nvtable.c
-+++ b/lib/nvtable.c
-@@ -404,7 +404,7 @@ nv_table_add_value(NVTable *self, NVHandle handle, const gchar *name, gsize name
+Index: syslog-ng-3.6.4/lib/nvtable.c
+===================================================================
+--- syslog-ng-3.6.4.orig/lib/nvtable.c
++++ syslog-ng-3.6.4/lib/nvtable.c
+@@ -401,7 +401,7 @@ nv_table_add_value(NVTable *self, NVHand
            dst = entry->vdirect.data + entry->name_len + 1;
  
            entry->vdirect.value_len = value_len;
@@ -28,7 +28,7 @@ index cf6a6ff3ec4a..9c05736386cf 100644
            dst[value_len] = 0;
          }
        else
-@@ -413,8 +413,8 @@ nv_table_add_value(NVTable *self, NVHandle handle, const gchar *name, gsize name
+@@ -410,8 +410,8 @@ nv_table_add_value(NVTable *self, NVHand
            entry->indirect = 0;
            entry->vdirect.value_len = value_len;
            entry->name_len = name_len;
@@ -39,7 +39,7 @@ index cf6a6ff3ec4a..9c05736386cf 100644
            entry->vdirect.data[entry->name_len + 1 + value_len] = 0;
          }
        return TRUE;
-@@ -438,11 +438,11 @@ nv_table_add_value(NVTable *self, NVHandle handle, const gchar *name, gsize name
+@@ -435,11 +435,11 @@ nv_table_add_value(NVTable *self, NVHand
      {
        /* we only store the name for non-builtin values */
        entry->name_len = name_len;
@@ -53,7 +53,7 @@ index cf6a6ff3ec4a..9c05736386cf 100644
    entry->vdirect.data[entry->name_len + 1 + value_len] = 0;
  
    nv_table_set_table_entry(self, handle, ofs, dyn_slot);
-@@ -513,7 +513,7 @@ nv_table_add_value_indirect(NVTable *self, NVHandle handle, const gchar *name, g
+@@ -510,7 +510,7 @@ nv_table_add_value_indirect(NVTable *sel
            if (handle >= self->num_static_entries)
              {
                entry->name_len = name_len;
@@ -62,7 +62,7 @@ index cf6a6ff3ec4a..9c05736386cf 100644
              }
            else
              {
-@@ -543,7 +543,7 @@ nv_table_add_value_indirect(NVTable *self, NVHandle handle, const gchar *name, g
+@@ -540,7 +540,7 @@ nv_table_add_value_indirect(NVTable *sel
    if (handle >= self->num_static_entries)
      {
        entry->name_len = name_len;
@@ -71,6 +71,3 @@ index cf6a6ff3ec4a..9c05736386cf 100644
      }
    else
      entry->name_len = 0;
--- 
-2.11.0
-
