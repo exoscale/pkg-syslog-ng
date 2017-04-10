@@ -1,0 +1,43 @@
+From c4c56fd77c51436b98b3e033b87777a377f49b27 Mon Sep 17 00:00:00 2001
+From: Balazs Scheidler <balazs.scheidler@balabit.com>
+Date: Tue, 6 Oct 2015 15:58:43 +0200
+Subject: [PATCH 2/3] logwriter: handle proto == NULL the same as a suspended
+ destination in slow-flow-control
+
+The aim of the soft-flow-control mechanism is to keep sources flow
+controlled as long as destination files are properly writable.  If the disk
+becomes full, or the fd is suspended, this soft-flow-control is
+automatically released and messages will get dropped on the floor.  This is
+to mimic I/O priorities in old, non-threaded syslog-ng versions, where file
+destinations were always preferred over sources.
+
+A LogWriter can suspend itself when an I/O error occurs, which was properly
+handled by the existing code.
+
+However, if the LogWriter is created with proto == NULL (the file or
+directory doesn't exist), that was not handled like that, causing
+flow-control to be uphold.  This is obviously wrong, so this patch changes
+the soft-flow-control decision to assume that proto == NULL is the same as
+suspension.
+
+Signed-off-by: Balazs Scheidler <balazs.scheidler@balabit.com>
+---
+ lib/logwriter.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/logwriter.c b/lib/logwriter.c
+index 35cd164c7578..25b0b3ca9b62 100644
+--- a/lib/logwriter.c
++++ b/lib/logwriter.c
+@@ -717,7 +717,7 @@ log_writer_queue(LogPipe *s, LogMessage *lm, const LogPathOptions *path_options,
+   gint mark_mode = self->options->mark_mode;
+ 
+   if (!path_options->flow_control_requested &&
+-      (self->suspended || !(self->flags & LW_SOFT_FLOW_CONTROL)))
++      ((self->proto == NULL || self->suspended) || !(self->flags & LW_SOFT_FLOW_CONTROL)))
+     {
+       /* NOTE: this code ACKs the message back if there's a write error in
+        * order not to hang the client in case of a disk full */
+-- 
+2.11.0
+

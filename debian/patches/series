@@ -2,3 +2,6 @@
 disable-afstomp-tests.patch
 578.patch
 0001-nvtable-use-memmove-instead-of-memcpy.patch
+0001-systemd-journal-clarify-error-debug-messages.patch
+0002-logwriter-handle-proto-NULL-the-same-as-a-suspended-.patch
+0003-logmsg-fix-argument-list-mismatch-of-log_msg_clone_a.patch

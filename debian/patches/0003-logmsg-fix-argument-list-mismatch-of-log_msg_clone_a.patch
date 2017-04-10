@@ -1,0 +1,44 @@
+From 90981252848419816850e58179aee98eb5832f75 Mon Sep 17 00:00:00 2001
+From: Balazs Scheidler <balazs.scheidler@balabit.com>
+Date: Mon, 12 Oct 2015 16:03:44 +0200
+Subject: [PATCH 3/3] logmsg: fix argument list mismatch of log_msg_clone_ack()
+
+The ack_func prototype was changed when the late acknowledgement mechanism
+was introduced, however log_msg_clone_ack was used through an explicit
+type cast that suppressed the warning from the compiler. This patch removes
+the cast and fixes the argument list.
+
+It fixes github issue #713.
+
+Signed-off-by: Balazs Scheidler <balazs.scheidler@balabit.com>
+---
+ lib/logmsg.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/lib/logmsg.c b/lib/logmsg.c
+index e5de5a1f08cc..e9070f22f17d 100644
+--- a/lib/logmsg.c
++++ b/lib/logmsg.c
+@@ -1105,8 +1105,8 @@ log_msg_new_empty(void)
+   return self;
+ }
+ 
+-void
+-log_msg_clone_ack(LogMessage *msg, gpointer user_data, AckType ack_type)
++static void
++log_msg_clone_ack(LogMessage *msg, AckType ack_type)
+ {
+   LogPathOptions path_options = LOG_PATH_OPTIONS_INIT;
+ 
+@@ -1154,7 +1154,7 @@ log_msg_clone_cow(LogMessage *msg, const LogPathOptions *path_options)
+     }
+   else
+     {
+-      self->ack_func = (LMAckFunc) log_msg_clone_ack;
++      self->ack_func = log_msg_clone_ack;
+     }
+ 
+   self->flags &= ~LF_STATE_MASK;
+-- 
+2.11.0
+
