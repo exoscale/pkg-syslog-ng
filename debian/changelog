@@ -1,3 +1,9 @@
+syslog-ng (3.25.1-3+exo1) unstable; urgency=medium
+
+  * Add support for librdkafka based kafka destination
+
+ -- Alexandros Afentoulis <alexandros.afentoulis@exoscale.ch>  Thu, 21 May 2020 16:18:43 +0300
+
 syslog-ng (3.25.1-3) unstable; urgency=medium
 
   * Remove outdated pep8 build dependency.
