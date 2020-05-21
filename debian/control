@@ -32,7 +32,8 @@ Build-Depends: debhelper (>= 10~),
                libxml2-utils, geoip-database,
                libmaxminddb-dev,
                libcurl4-openssl-dev,
-               libsnappy-dev
+               libsnappy-dev,
+               librdkafka-dev (>= 1.0.0),
 Build-Conflicts: autoconf2.13
 Standards-Version: 4.4.1
 Homepage: https://www.syslog-ng.com/
@@ -553,6 +554,29 @@ Description: Enhanced system logging daemon (xml parser plugin)
  .
  The xml parser can process input in xml format, and adds the parsed data
  to the message object.
+
+Package: syslog-ng-mod-rdkafka
+Architecture: any
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}, syslog-ng-core (>= ${source:Version}), syslog-ng-core (<< ${source:Version}.1~)
+Description: Enhanced system logging daemon (Kafka destination, based on librdkafka)
+ syslog-ng is an enhanced log daemon, supporting a wide range of input
+ and output methods: syslog, unstructured text, message queues,
+ databases (SQL and NoSQL alike) and more.
+ .
+ Key features:
+ .
+  * receive and send RFC3164 and RFC5424 style syslog messages
+  * work with any kind of unstructured data
+  * receive and send JSON formatted messages
+  * classify and structure logs with builtin parsers (csv-parser(),
+    db-parser(), etc.)
+  * normalize, crunch and process logs as they flow through the system
+  * hand on messages for further processing using message queues (like
+    AMQP), files or databases (like PostgreSQL or MongoDB).
+ .
+ This package provides a native Kafka destination, written entirely in the
+ C programming language, based on the librdkafka client library.
 
 Package: syslog-ng-mod-extra
 Architecture: all
